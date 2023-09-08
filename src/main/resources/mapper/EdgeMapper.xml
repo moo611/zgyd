@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgyd.project.mapper.EdgeMapper">
+
+    <select id="getEdgeById" resultType="com.zgyd.project.domain.edge.EdgeDao">
+        select id,sid,tid,w from tb_edge where sid = #{sid} and tid = #{tid}
+    </select>
+
+    <select id="getEdgeBySid" resultType="com.zgyd.project.domain.edge.EdgeDao">
+        select id,sid,tid,w from tb_edge where sid = #{sid}
+    </select>
+
+</mapper>
