@@ -16,6 +16,8 @@ import java.util.*;
 @Service
 public class GraphService {
 
+    public static float tdxs = 1;
+
     @Autowired
     NodeService nodeService;
 
@@ -66,6 +68,9 @@ public class GraphService {
 
             ResultVO resultVO = new ResultVO();
             resultVO.setRouteIds(new ArrayList<>(cur));
+
+            sum += (cur.size()-1) * tdxs;
+
             resultVO.setSum(sum);
             res.add(resultVO);
             return;
