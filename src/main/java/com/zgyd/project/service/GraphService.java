@@ -1,6 +1,7 @@
 package com.zgyd.project.service;
 
 import com.zgyd.project.common.Response;
+import com.zgyd.project.domain.ResultVO;
 import com.zgyd.project.domain.edge.EdgeDao;
 import com.zgyd.project.domain.node.NodeDao;
 import com.zgyd.project.mapper.NodeMapper;
@@ -24,15 +25,23 @@ public class GraphService {
     @Autowired
     NodeMapper nodeMapper;
 
-    public Response<List<List<String>>> getRoutes(String sid, String tid) {
+    public Response<List<ResultVO>> getRoutes(String sid, String tid, String level) {
 
-        List<List<String>> result = new ArrayList<>();
+        List<ResultVO> result = new ArrayList<>();
         List<String> cur = new ArrayList<>();
         Map<String, List<EdgeDao>> map = loadNodesWithEdges();
         Map<String, Boolean> visited = new HashMap<>();
         cur.add(sid);
-        visited.put(sid,true);
-        def(result, cur, sid, tid, map, visited);
+        visited.put(sid, true);
+        float sum = 0;
+        def(result, cur, sid, tid, map, visited, sum, level);
+
+        //地名
+        for (ResultVO resultVO : result) {
+            List<String> names = nodeMapper.getNameByIds(resultVO.getRouteIds());
+            resultVO.setRouteNames(names);
+        }
+
         return new Response<>(true, result, 200);
 
     }
@@ -45,24 +54,40 @@ public class GraphService {
      * @param map
      * @param visited
      */
-    private void def(List<List<String>> res, List<String> cur, String cid, String tid,
-                     Map<String, List<EdgeDao>> map, Map<String, Boolean> visited) {
+    private void def(List<ResultVO> res,
+                     List<String> cur,
+                     String cid,
+                     String tid,
+                     Map<String, List<EdgeDao>> map,
+                     Map<String, Boolean> visited,
+                     float sum,
+                     String level) {
         if (cid.equals(tid)) {
-            res.add(new ArrayList<>(cur));
+
+            ResultVO resultVO = new ResultVO();
+            resultVO.setRouteIds(new ArrayList<>(cur));
+            resultVO.setSum(sum);
+            res.add(resultVO);
             return;
         }
         //当前节点所有边
         List<EdgeDao> edgeDaos = map.get(cid);
-        for (EdgeDao edgeDao:edgeDaos){
+        for (EdgeDao edgeDao : edgeDaos) {
+
+            if (level != null && !edgeDao.getLevel().equals(level)) {
+                continue;
+            }
 
             String nextId = edgeDao.getTid();
-
-            if (visited.get(nextId) == null || !visited.get(nextId)){
+            float consume = edgeDao.getW() * edgeDao.getK();
+            if (visited.get(nextId) == null || !visited.get(nextId)) {
                 cur.add(nextId);
-                visited.put(nextId,true);
-                def(res, cur, nextId, tid, map, visited);
-                cur.remove(cur.size()-1);
-                visited.put(nextId,false);
+                visited.put(nextId, true);
+                sum += consume;
+                def(res, cur, nextId, tid, map, visited, sum, level);
+                sum -= consume;
+                cur.remove(cur.size() - 1);
+                visited.put(nextId, false);
             }
         }
 

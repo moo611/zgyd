@@ -29,8 +29,20 @@ public class EdgeDao {
     String tid;
 
     /**
-     * 权重
+     * 距离
      */
     @Column
     Float w;
+
+    /**
+     * 衰耗系数
+     */
+    @Column
+    Float k;
+
+    /**
+     * 级别
+     */
+    @Column
+    String level;
 }

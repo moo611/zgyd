@@ -1,6 +1,7 @@
 package com.zgyd.project.controller;
 
 import com.zgyd.project.common.Response;
+import com.zgyd.project.domain.ResultVO;
 import com.zgyd.project.service.GraphService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,11 @@ public class GraphController {
     @Autowired
     GraphService graphService;
     @GetMapping("/list")
-    Response<List<List<String>>> getRoutes(@RequestParam("sid")String sid,@RequestParam("tid")String tid){
+    Response<List<ResultVO>> getRoutes(@RequestParam("sid")String sid,
+                                       @RequestParam("tid")String tid,
+                                       @RequestParam(value = "level",required = false)String level){
 
-        return graphService.getRoutes(sid, tid);
+        return graphService.getRoutes(sid, tid,level);
 
     }
 

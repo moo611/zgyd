@@ -10,7 +10,9 @@ import java.util.List;
 @Mapper
 public interface NodeMapper extends MyMapper<NodeDao> {
 
-    List<NodeDao>getAllNodes();
+    List<NodeDao> getAllNodes();
 
-    NodeDao getNodeByName(@Param("name")String name);
+    List<String> getNameByIds(@Param("ids") List<String> ids);
+
+    NodeDao getNodeByName(@Param("name") String name);
 }

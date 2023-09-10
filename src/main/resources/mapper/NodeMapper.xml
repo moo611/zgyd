@@ -10,4 +10,16 @@
         select id,name from tb_node where name = #{name}
     </select>
 
+    <select id="getNameByIds" resultType="string">
+        select name from tb_node where id in
+        <foreach item="item" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by field(id,
+        <foreach item="item" collection="ids" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+
 </mapper>

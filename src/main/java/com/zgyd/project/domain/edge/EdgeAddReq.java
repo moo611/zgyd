@@ -21,5 +21,8 @@ public class EdgeAddReq implements Serializable {
      * 衰耗系数
      */
     String k;
-
+    /**
+     * 级别
+     */
+    String level;
 }
