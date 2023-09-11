@@ -5,6 +5,7 @@ import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.edge.EdgeAddReq;
 import com.zgyd.project.domain.edge.EdgeDao;
 import com.zgyd.project.domain.edge.EdgePageReq;
+import com.zgyd.project.domain.edge.EdgeVO;
 import com.zgyd.project.mapper.EdgeMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,11 @@ public class EdgeService {
      * 分页查询
      * @return
      */
-    public Response<List<EdgeDao>> getEdgeList(EdgePageReq param){
+    public Response<List<EdgeVO>> getEdgeList(EdgePageReq param){
 
         PageHelper.startPage(param.getPage(), param.getCount());
 
-        List<EdgeDao> list = edgeMapper.getEdgePage(param.getQuery());
+        List<EdgeVO> list = edgeMapper.getEdgePage(param.getQuery());
 
         return new Response<>(true, list, 200);
     }

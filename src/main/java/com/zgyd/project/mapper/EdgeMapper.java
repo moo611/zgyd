@@ -1,6 +1,7 @@
 package com.zgyd.project.mapper;
 
 import com.zgyd.project.domain.edge.EdgeDao;
+import com.zgyd.project.domain.edge.EdgeVO;
 import com.zgyd.project.utils.tk.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,5 +16,5 @@ public interface EdgeMapper extends MyMapper<EdgeDao> {
 
     List<EdgeDao>getEdgeBySid(@Param("sid") String sid);
 
-    List<EdgeDao>getEdgePage(@Param("query")String query);
+    List<EdgeVO>getEdgePage(@Param("query")String query);
 }

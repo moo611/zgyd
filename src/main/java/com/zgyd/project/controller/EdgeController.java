@@ -4,6 +4,7 @@ import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.edge.EdgeAddReq;
 import com.zgyd.project.domain.edge.EdgeDao;
 import com.zgyd.project.domain.edge.EdgePageReq;
+import com.zgyd.project.domain.edge.EdgeVO;
 import com.zgyd.project.domain.node.NodeAddReq;
 import com.zgyd.project.domain.node.NodeDao;
 import com.zgyd.project.domain.node.NodePageReq;
@@ -29,7 +30,7 @@ public class EdgeController {
 
 
     @PostMapping("/list")
-    public Response<List<EdgeDao>>getNodes(@RequestBody EdgePageReq param){
+    public Response<List<EdgeVO>>getNodes(@RequestBody EdgePageReq param){
 
         return edgeService.getEdgeList(param);
 
