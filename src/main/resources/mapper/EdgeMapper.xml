@@ -10,11 +10,25 @@
         select id,sid,tid,w,k,level from tb_edge where sid = #{sid}
     </select>
 
-    <select id="getEdgePage" resultType="com.zgyd.project.domain.edge.EdgeDao">
-        select id,sid,tid,s_name as sName,t_name as tName,w,k,level from tb_edge
-        where 1=1
+    <select id="getEdgePage" resultType="com.zgyd.project.domain.edge.EdgeVO">
+        SELECT
+        a.id,
+        a.name,
+        a.sid,
+        a.tid,
+        b.name AS sName,
+        c.name AS tName,
+        a.w,
+        a.k,
+        a.level,
+        a.create_time as createTime
+        FROM
+        tb_edge a
+        LEFT JOIN tb_node b ON a.sid = b.id
+        LEFT JOIN tb_node c ON a.tid = c.id
+        WHERE a.del_flag = 0
         <if test="query != null and query.trim() !=''">
-            and s_name like concat('%',#{query},'%') or t_name like concat('%',#{query},'%')
+            and a.name LIKE concat('%',#{query},'%')
         </if>
 
     </select>

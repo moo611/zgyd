@@ -30,10 +30,6 @@ public class EdgeService {
         EdgeDao edgeDao = new EdgeDao();
         BeanUtils.copyProperties(param, edgeDao);
         edgeDao.setW(Float.valueOf(param.getW()));
-        String sName = nodeService.getNodeById(param.getSid()).getName();
-        String tName = nodeService.getNodeById(param.getTid()).getName();
-        edgeDao.setSName(sName);
-        edgeDao.setTName(tName);
         int row = edgeMapper.insert(edgeDao);
 
         if (row == 0) {
