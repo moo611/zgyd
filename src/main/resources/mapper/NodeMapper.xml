@@ -3,11 +3,11 @@
 <mapper namespace="com.zgyd.project.mapper.NodeMapper">
 
     <select id="getAllNodes" resultType="com.zgyd.project.domain.node.NodeDao">
-        select id,name from tb_node
+        select id,name,create_time as createTime from tb_node
     </select>
 
     <select id="getNodeByName" resultType="com.zgyd.project.domain.node.NodeDao">
-        select id,name from tb_node where name = #{name}
+        select id,name,create_time as createTime from tb_node where name = #{name}
     </select>
 
     <select id="getNameByIds" resultType="string">
@@ -22,4 +22,17 @@
         )
     </select>
 
+    <select id="getNodeById" resultType="com.zgyd.project.domain.node.NodeDao">
+        select id,name,create_time as createTime from tb_node where id = #{id}
+    </select>
+
+    <select id="getNodesPage" resultType="com.zgyd.project.domain.node.NodeDao">
+        select id,name,create_time as createTime from tb_node
+        where 1=1
+        <if test="query != null and query.trim() !=''">
+            and name like concat('%',#{query},'%')
+        </if>
+
+
+    </select>
 </mapper>

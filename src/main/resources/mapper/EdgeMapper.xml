@@ -10,4 +10,13 @@
         select id,sid,tid,w,k,level from tb_edge where sid = #{sid}
     </select>
 
+    <select id="getEdgePage" resultType="com.zgyd.project.domain.edge.EdgeDao">
+        select id,sid,tid,s_name as sName,t_name as tName,w,k,level from tb_edge
+        where 1=1
+        <if test="query != null and query.trim() !=''">
+            and s_name like concat('%',#{query},'%') or t_name like concat('%',#{query},'%')
+        </if>
+
+    </select>
+
 </mapper>

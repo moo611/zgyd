@@ -22,12 +22,22 @@ public class EdgeDao {
      */
     @Column
     String sid;
+
+    /**
+     * 起始点名称
+     */
+    @Column(name = "s_name")
+    String sName;
     /**
      * 终点
      */
     @Column
     String tid;
-
+    /**
+     * 终点名称
+     */
+    @Column(name = "t_name")
+    String tName;
     /**
      * 距离
      */

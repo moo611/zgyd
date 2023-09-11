@@ -21,6 +21,7 @@ public class NodeDao {
     @Column
     String name;
 
-
+    @Column(name = "create_time")
+    String createTime;
 
 }

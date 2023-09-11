@@ -15,4 +15,8 @@ public interface NodeMapper extends MyMapper<NodeDao> {
     List<String> getNameByIds(@Param("ids") List<String> ids);
 
     NodeDao getNodeByName(@Param("name") String name);
+
+    NodeDao getNodeById(@Param("id")String id);
+
+    List<NodeDao>getNodesPage(@Param("query")String query);
 }
