@@ -4,12 +4,10 @@ import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.node.NodeAddReq;
 import com.zgyd.project.domain.node.NodeDao;
 import com.zgyd.project.domain.node.NodePageReq;
+import com.zgyd.project.domain.node.NodeUpdateReq;
 import com.zgyd.project.service.NodeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +30,18 @@ public class NodeController {
 
         return nodeService.getNodesPage(param);
 
+    }
+
+    @PutMapping("/update")
+    public Response update(@RequestBody NodeUpdateReq param){
+
+        return nodeService.update(param);
+    }
+
+    @DeleteMapping("/del")
+    public Response delete(@RequestParam("id") String id){
+
+        return nodeService.delete(id);
     }
 
 }

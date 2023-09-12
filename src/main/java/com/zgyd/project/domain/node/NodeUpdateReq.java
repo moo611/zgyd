@@ -7,5 +7,6 @@ import java.io.Serializable;
 @Data
 public class NodeUpdateReq implements Serializable {
 
+    String id;
     String name;
 }

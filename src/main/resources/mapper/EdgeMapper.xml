@@ -3,11 +3,11 @@
 <mapper namespace="com.zgyd.project.mapper.EdgeMapper">
 
     <select id="getEdgeById" resultType="com.zgyd.project.domain.edge.EdgeDao">
-        select id,sid,tid,w,k,level from tb_edge where sid = #{sid} and tid = #{tid}
+        select id,sid,tid,w,k,level from tb_edge where del_flag='0' and sid = #{sid} and tid = #{tid}
     </select>
 
     <select id="getEdgeBySid" resultType="com.zgyd.project.domain.edge.EdgeDao">
-        select id,sid,tid,w,k,level from tb_edge where sid = #{sid}
+        select id,sid,tid,w,k,level from tb_edge where del_flag='0' and sid = #{sid}
     </select>
 
     <select id="getEdgePage" resultType="com.zgyd.project.domain.edge.EdgeVO">
@@ -26,7 +26,7 @@
         tb_edge a
         LEFT JOIN tb_node b ON a.sid = b.id
         LEFT JOIN tb_node c ON a.tid = c.id
-        WHERE a.del_flag = 0
+        WHERE a.del_flag = '0'
         <if test="query != null and query.trim() !=''">
             and a.name LIKE concat('%',#{query},'%')
         </if>

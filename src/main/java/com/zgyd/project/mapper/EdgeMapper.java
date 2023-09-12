@@ -17,4 +17,6 @@ public interface EdgeMapper extends MyMapper<EdgeDao> {
     List<EdgeDao>getEdgeBySid(@Param("sid") String sid);
 
     List<EdgeVO>getEdgePage(@Param("query")String query);
+
+
 }

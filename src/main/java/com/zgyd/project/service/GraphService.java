@@ -77,6 +77,12 @@ public class GraphService {
         }
         //当前节点所有边
         List<EdgeDao> edgeDaos = map.get(cid);
+
+        if (edgeDaos==null){
+            //这个点被删除了，导致查不出边
+            return;
+        }
+
         for (EdgeDao edgeDao : edgeDaos) {
 
             if (level != null && !edgeDao.getLevel().equals(level)) {

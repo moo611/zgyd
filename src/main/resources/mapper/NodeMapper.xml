@@ -3,7 +3,7 @@
 <mapper namespace="com.zgyd.project.mapper.NodeMapper">
 
     <select id="getAllNodes" resultType="com.zgyd.project.domain.node.NodeDao">
-        select id,name,create_time as createTime from tb_node
+        select id,name,create_time as createTime from tb_node WHERE del_flag = '0'
     </select>
 
     <select id="getNodeByName" resultType="com.zgyd.project.domain.node.NodeDao">
@@ -22,9 +22,6 @@
         )
     </select>
 
-    <select id="getNodeById" resultType="com.zgyd.project.domain.node.NodeDao">
-        select id,name,create_time as createTime from tb_node where id = #{id}
-    </select>
 
     <select id="getNodesPage" resultType="com.zgyd.project.domain.node.NodeDao">
         select id,name,create_time as createTime from tb_node
