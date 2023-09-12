@@ -2,12 +2,9 @@ package com.zgyd.project.controller;
 
 import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.edge.EdgeAddReq;
-import com.zgyd.project.domain.edge.EdgeDao;
 import com.zgyd.project.domain.edge.EdgePageReq;
+import com.zgyd.project.domain.edge.EdgeUpdateReq;
 import com.zgyd.project.domain.edge.EdgeVO;
-import com.zgyd.project.domain.node.NodeAddReq;
-import com.zgyd.project.domain.node.NodeDao;
-import com.zgyd.project.domain.node.NodePageReq;
 import com.zgyd.project.service.EdgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +31,18 @@ public class EdgeController {
 
         return edgeService.getEdgeList(param);
 
+    }
+
+    @PutMapping("/update")
+    public Response update(@RequestBody EdgeUpdateReq param){
+
+        return edgeService.update(param);
+    }
+
+    @DeleteMapping("/del")
+    public Response delete(@RequestParam("id") String id){
+
+        return edgeService.delete(id);
     }
 
 }

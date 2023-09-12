@@ -20,11 +20,16 @@ public class NodeService {
     @Autowired
     NodeMapper nodeMapper;
 
+    static final int NODE_EXIST = 30001;
+    static final int NODE_ADD_FAILED = 30002;
+    static final int NODE_UPDATE_FAILED = 30003;
+    static final int NODE_DELETE_FAILED = 30004;
+
     public Response save(NodeAddReq param) {
 
         NodeDao oldNode = nodeMapper.getNodeByName(param.getName());
         if (oldNode != null) {
-            return Response.error(30001, "节点已存在");
+            return Response.error(NODE_EXIST, "节点已存在");
         }
 
         NodeDao nodeDao = new NodeDao();
@@ -33,7 +38,7 @@ public class NodeService {
         int row = nodeMapper.insert(nodeDao);
 
         if (row == 0) {
-            return Response.error(30002, "添加节点失败");
+            return Response.error(NODE_ADD_FAILED, "添加节点失败");
         }
 
         return Response.builder().success(true).msg("添加节点成功")
@@ -59,12 +64,12 @@ public class NodeService {
     public Response update(NodeUpdateReq param) {
 
         NodeDao nodeDao = new NodeDao();
-        BeanUtils.copyProperties(param,nodeDao);
+        BeanUtils.copyProperties(param, nodeDao);
 
         int rows = nodeMapper.updateByPrimaryKeySelective(nodeDao);
 
         if (rows == 0) {
-            return Response.error(30002, "更新节点失败");
+            return Response.error(NODE_UPDATE_FAILED, "更新节点失败");
         }
 
         return Response.builder().success(true).msg("更新节点成功")
@@ -80,7 +85,7 @@ public class NodeService {
 
         int rows = nodeMapper.updateByPrimaryKeySelective(nodeDao);
         if (rows == 0) {
-            return Response.error(30002, "删除节点失败");
+            return Response.error(NODE_DELETE_FAILED, "删除节点失败");
         }
 
         return Response.builder().success(true).msg("删除节点成功")

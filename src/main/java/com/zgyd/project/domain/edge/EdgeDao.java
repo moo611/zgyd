@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class EdgeDao {
 
     @Id
-    Long id;
+    String id;
     /**
      * 边名
      */
