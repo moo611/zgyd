@@ -1,5 +1,6 @@
 package com.zgyd.project.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.node.NodeAddReq;
 import com.zgyd.project.domain.node.NodeDao;
@@ -26,7 +27,7 @@ public class NodeController {
     }
 
     @PostMapping("/list")
-    public Response<List<NodeDao>>getNodes(@RequestBody NodePageReq param){
+    public Response<PageInfo<NodeDao>>getNodes(@RequestBody NodePageReq param){
 
         return nodeService.getNodesPage(param);
 

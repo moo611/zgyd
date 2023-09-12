@@ -1,5 +1,6 @@
 package com.zgyd.project.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.edge.EdgeAddReq;
 import com.zgyd.project.domain.edge.EdgePageReq;
@@ -27,7 +28,7 @@ public class EdgeController {
 
 
     @PostMapping("/list")
-    public Response<List<EdgeVO>>getNodes(@RequestBody EdgePageReq param){
+    public Response<PageInfo<EdgeVO>>getNodes(@RequestBody EdgePageReq param){
 
         return edgeService.getEdgeList(param);
 

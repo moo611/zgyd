@@ -8,6 +8,11 @@ public class EdgeUpdateReq implements Serializable {
 
     String id;
     /**
+     * 边名称
+     */
+    String name;
+
+    /**
      * 距离
      */
     String w;

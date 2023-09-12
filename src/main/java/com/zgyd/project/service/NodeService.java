@@ -1,6 +1,7 @@
 package com.zgyd.project.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.node.NodeAddReq;
 import com.zgyd.project.domain.node.NodeDao;
@@ -51,13 +52,13 @@ public class NodeService {
      *
      * @return
      */
-    public Response<List<NodeDao>> getNodesPage(NodePageReq param) {
+    public Response<PageInfo<NodeDao>> getNodesPage(NodePageReq param) {
 
         PageHelper.startPage(param.getPage(), param.getCount());
 
         List<NodeDao> list = nodeMapper.getNodesPage(param.getQuery());
-
-        return new Response<>(true, list, 200);
+        PageInfo<NodeDao>pageInfo = new PageInfo<>(list);
+        return new Response<>(true, pageInfo, 200);
 
     }
 

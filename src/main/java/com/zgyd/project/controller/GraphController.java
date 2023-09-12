@@ -1,5 +1,6 @@
 package com.zgyd.project.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.ResultVO;
 import com.zgyd.project.service.GraphService;
@@ -18,9 +19,9 @@ public class GraphController {
     @Autowired
     GraphService graphService;
     @GetMapping("/list")
-    Response<List<ResultVO>> getRoutes(@RequestParam("sid")String sid,
-                                       @RequestParam("tid")String tid,
-                                       @RequestParam(value = "level",required = false)String level){
+    Response<PageInfo<ResultVO>> getRoutes(@RequestParam("sid")String sid,
+                                           @RequestParam("tid")String tid,
+                                           @RequestParam(value = "level",required = false)String level){
 
         return graphService.getRoutes(sid, tid,level);
 

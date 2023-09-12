@@ -14,6 +14,10 @@ public class EdgeAddReq implements Serializable {
      */
     String tid;
     /**
+     * 边名称
+     */
+    String name;
+    /**
      * 距离
      */
     String w;
