@@ -72,6 +72,8 @@ public class EdgeService {
 
         EdgeDao edgeDao = new EdgeDao();
         BeanUtils.copyProperties(param,edgeDao);
+        edgeDao.setK(Float.valueOf(param.getK()));
+        edgeDao.setW(Float.valueOf(param.getW()));
 
         int rows = edgeMapper.updateByPrimaryKeySelective(edgeDao);
 
