@@ -116,14 +116,14 @@ public class GraphService {
         Map<String, List<EdgeDao>> resultMap = new HashMap<>();
 
         List<NodeDao> nodes = nodeMapper.getAllNodes();
-
+        System.out.println("starttime:"+System.currentTimeMillis());
         for (NodeDao node : nodes) {
 
             List<EdgeDao> edgeDaos = edgeService.edgeMapper.getEdgeBySid(node.getId());
 
             resultMap.put(node.getId(), edgeDaos);
         }
-
+        System.out.println("endtime:"+System.currentTimeMillis());
         return resultMap;
     }
 
