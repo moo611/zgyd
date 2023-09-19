@@ -1,5 +1,6 @@
 package com.zgyd.project.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zgyd.project.common.Response;
 import com.zgyd.project.domain.ResultVO;
 import com.zgyd.project.domain.edge.EdgeDao;
@@ -27,7 +28,7 @@ public class GraphService {
     @Autowired
     NodeMapper nodeMapper;
 
-    public Response<List<ResultVO>> getRoutes(String sid, String tid, String level) {
+    public Response<PageInfo<ResultVO>> getRoutes(String sid, String tid, String level) {
 
         List<ResultVO> result = new ArrayList<>();
         List<String> cur = new ArrayList<>();
@@ -43,8 +44,8 @@ public class GraphService {
             List<String> names = nodeMapper.getNameByIds(resultVO.getRouteIds());
             resultVO.setRouteNames(names);
         }
-
-        return new Response<>(true, result, 200);
+        PageInfo<ResultVO>pageInfo = new PageInfo<>(result);
+        return new Response<>(true, pageInfo, 200);
 
     }
 
@@ -77,6 +78,12 @@ public class GraphService {
         }
         //当前节点所有边
         List<EdgeDao> edgeDaos = map.get(cid);
+
+        if (edgeDaos==null){
+            //这个点被删除了，导致查不出边
+            return;
+        }
+
         for (EdgeDao edgeDao : edgeDaos) {
 
             if (level != null && !edgeDao.getLevel().equals(level)) {
@@ -109,14 +116,14 @@ public class GraphService {
         Map<String, List<EdgeDao>> resultMap = new HashMap<>();
 
         List<NodeDao> nodes = nodeMapper.getAllNodes();
-
+        System.out.println("starttime:"+System.currentTimeMillis());
         for (NodeDao node : nodes) {
 
             List<EdgeDao> edgeDaos = edgeService.edgeMapper.getEdgeBySid(node.getId());
 
             resultMap.put(node.getId(), edgeDaos);
         }
-
+        System.out.println("endtime:"+System.currentTimeMillis());
         return resultMap;
     }
 

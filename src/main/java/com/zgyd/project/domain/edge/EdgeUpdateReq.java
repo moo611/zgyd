@@ -4,19 +4,14 @@ import lombok.Data;
 
 import java.io.Serializable;
 @Data
-public class EdgeAddReq implements Serializable {
-    /**
-     * 源地区
-     */
-    String sid;
-    /**
-     * 目标地区
-     */
-    String tid;
+public class EdgeUpdateReq implements Serializable {
+
+    String id;
     /**
      * 边名称
      */
     String name;
+
     /**
      * 距离
      */
@@ -29,4 +24,5 @@ public class EdgeAddReq implements Serializable {
      * 级别
      */
     String level;
+
 }
